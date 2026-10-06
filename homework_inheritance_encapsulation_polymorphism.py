@@ -100,6 +100,9 @@ class Student(GradeComparableMixin):
         )    
 
 
+
+
+
 def get_avg_student_grade(students_list, course_name):
     """
     Подсчёт средней оценки за домашние задания по всем студентам 
@@ -229,3 +232,79 @@ avg_lecturer_python = get_avg_lecturer_grade(lecturers, 'Python')
 print()
 print(f"Средняя оценка студентов по курсу Python: {avg_student_python:.1f}")
 print(f"Средняя оценка лекторов по курсу Python: {avg_lecturer_python:.1f}")
+
+print('--------------------------------------------------------------------------')
+
+abashev = Student('Денис', 'Абашев', 'м')
+abashev.courses_in_progress += ['Математика']
+abashev.courses_in_progress += ['Электроника']
+
+kondratiev = Student('Дмитрий', 'Кондратьев', 'м')
+kondratiev.courses_in_progress += ['Электроника']
+kondratiev.finished_courses += ['Математика']
+
+students_list =[abashev, kondratiev]
+
+strapenin = Lecturer('Григорий', 'Страпенин')
+strapenin.courses_attached += ['Электроника']
+
+bautin = Lecturer('Петр', 'Баутин')
+bautin.courses_attached += ['Математика']
+
+lektors_list = [strapenin, bautin]
+
+sadov = Reviewer('Андрей', 'Садов')
+sadov.courses_attached += ['Математика']
+
+lisin = Reviewer('Валерий', 'Лисин')
+lisin.courses_attached += ['Электроника']
+
+
+sadov.rate_hw(abashev, 'Математика', 3)
+sadov.rate_hw(abashev, 'Математика', 2)
+sadov.rate_hw(abashev, 'Математика', 3)
+sadov.rate_hw(kondratiev, 'Математика', 5)
+
+lisin.rate_hw(abashev, 'Электроника', 3)
+lisin.rate_hw(abashev, 'Электроника', 4)
+lisin.rate_hw(abashev, 'Электроника', 5)
+lisin.rate_hw(kondratiev, 'Электроника', 3)
+lisin.rate_hw(kondratiev, 'Электроника', 3)
+lisin.rate_hw(kondratiev, 'Электроника', 3)
+
+abashev.rate_lecture(strapenin, 'Электроника', 7)
+abashev.rate_lecture(strapenin, 'Электроника', 8)
+abashev.rate_lecture(strapenin, 'Электроника', 5)
+kondratiev.rate_lecture(strapenin, 'Электроника', 2)
+kondratiev.rate_lecture(strapenin, 'Электроника', 1)
+kondratiev.rate_lecture(strapenin, 'Электроника', 1)
+
+abashev.rate_lecture(bautin, 'Математика', 9)
+abashev.rate_lecture(bautin, 'Математика', 7)
+abashev.rate_lecture(bautin, 'Математика', 6)
+
+kondratiev.rate_lecture(bautin, 'Математика', 8)
+
+print(f'')
+print(abashev)
+print(f'')
+print(kondratiev)
+print(f'')
+print(bautin)
+print(f'')
+print(strapenin)
+print(f'')
+print(sadov)
+print(f'')
+print(lisin)
+
+print(f'')
+# print("Средний балл за домашние задания по курсу:", get_avg_student_grade(students_list, 'Электроника'))
+# print("Средний балл за лекции по курсу:", get_avg_lecturer_grade(lektors_list, 'Математика'))
+print(f"Средняя оценка студентов по курсу Электроника: {get_avg_student_grade(students_list, 'Электроника'):.1f}")
+print(f"Средняя оценка лекторов по курсу Математика: {get_avg_lecturer_grade(lektors_list, 'Математика'):.1f}")
+
+print(f'')
+print(strapenin > bautin)
+print(f'')
+print(kondratiev > abashev)
